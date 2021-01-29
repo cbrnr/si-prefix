@@ -77,12 +77,14 @@ def siprefix(number, prefix="auto", ten_hundred=False):
         return number, ""
     if prefix == "auto":  # determine best SI prefix automatically
         index = round(log10(abs(number)))
-        while True:
+        min_index = min(PREFIXES.keys())
+        while index >= min_index:
             p = PREFIXES.get(index)
             if p is None or (not ten_hundred and index in [2, 1, -1, -2]):
                 index -= 1
             else:
                 return number / 10**index, p[0]
+        return number / 10**min_index, PREFIXES.get(min_index)[0]
     else:  # use provided SI prefix
         index = {i: k for k, v in PREFIXES.items() for i in v}[prefix]
         return number / 10**index, PREFIXES[index][0]
