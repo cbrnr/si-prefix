@@ -16,7 +16,7 @@ PREFIXES = {
     -1: "d",  # deci
     -2: "c",  # centi
     -3: "m",  # milli
-    -6: "µ",  # micro
+    -6: "μ",  # micro
     -9: "n",  # nano
     -12: "p",  # pico
     -15: "f",  # femto
@@ -64,7 +64,7 @@ def siprefix(number, prefix="auto", ten_hundred=False):
     >>> siprefix(0.033)
     (33.0, 'm')
     >>> siprefix(22.3e-6)
-    (22.3, 'µ')
+    (22.3, 'μ')
     >>> siprefix(22.3e-6, "n")
     (22300.0, 'n')
 
@@ -84,5 +84,7 @@ def siprefix(number, prefix="auto", ten_hundred=False):
             else:
                 return number / 10**index, p
     else:  # use provided SI prefix
+        if prefix == "u" or prefix == "µ":  # micro sign (0xB5)
+            prefix = "μ"  # Greek mu (0x3BC)
         index = {v: k for k, v in PREFIXES.items()}[prefix]
         return number / 10**index, PREFIXES[index]
