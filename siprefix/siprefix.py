@@ -2,27 +2,27 @@ from math import log10
 
 
 PREFIXES = {
-    24: "Y",  # yotta
-    21: "Z",  # zetta
-    18: "E",  # exa
-    15: "P",  # peta
-    12: "T",  # tera
-    9: "G",  # giga
-    6: "M",  # mega
-    3: "k",  # kilo
-    2: "h",  # hecto
-    1: "da",  # deca
-    0: "",
-    -1: "d",  # deci
-    -2: "c",  # centi
-    -3: "m",  # milli
-    -6: "μ",  # micro
-    -9: "n",  # nano
-    -12: "p",  # pico
-    -15: "f",  # femto
-    -18: "a",  # atto
-    -21: "z",  # zepto
-    -24: "y",  # yocto
+    24: ["Y", "yotta"],
+    21: ["Z", "zetta"],
+    18: ["E", "exa"],
+    15: ["P", "peta"],
+    12: ["T", "tera"],
+    9: ["G", "giga"],
+    6: ["M", "mega"],
+    3: ["k", "kilo"],
+    2: ["h", "hecto"],
+    1: ["da", "deca"],
+    0: [""],
+    -1: ["d", "deci"],
+    -2: ["c", "centi"],
+    -3: ["m", "milli"],
+    -6: ["μ", "µ", "u", "micro"],
+    -9: ["n", "nano"],
+    -12: ["p", "pico"],
+    -15: ["f", "femto"],
+    -18: ["a", "atto"],
+    -21: ["z", "zepto"],
+    -24: ["y", "yocto"]
 }
 
 
@@ -82,9 +82,7 @@ def siprefix(number, prefix="auto", ten_hundred=False):
             if p is None or (not ten_hundred and index in [2, 1, -1, -2]):
                 index -= 1
             else:
-                return number / 10**index, p
+                return number / 10**index, p[0]
     else:  # use provided SI prefix
-        if prefix == "u" or prefix == "µ":  # micro sign (0xB5)
-            prefix = "μ"  # Greek mu (0x3BC)
-        index = {v: k for k, v in PREFIXES.items()}[prefix]
-        return number / 10**index, PREFIXES[index]
+        index = {i: k for k, v in PREFIXES.items() for i in v}[prefix]
+        return number / 10**index, PREFIXES[index][0]
