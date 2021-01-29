@@ -67,6 +67,7 @@ def siprefix(number, prefix="auto", ten_hundred=False):
     (22.3, 'µ')
     >>> siprefix(22.3e-6, "n")
     (22300.0, 'n')
+
     Notes
     -----
     Due to limited precision of floating point numbers, minor differences
