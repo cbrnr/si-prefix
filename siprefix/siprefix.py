@@ -1,3 +1,7 @@
+# Authors: Clemens Brunner <clemens.brunner@gmail.com>
+#
+# License: BSD (3-clause)
+
 """Scale numbers with SI prefixes."""
 
 from math import log10
