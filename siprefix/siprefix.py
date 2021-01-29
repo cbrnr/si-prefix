@@ -82,7 +82,7 @@ def siprefix(number, prefix="auto", ten_hundred=False):
             if p is None or (not ten_hundred and index in [2, 1, -1, -2]):
                 index -= 1
             else:
-                return number / 10**index, PREFIXES[index]
+                return number / 10**index, p
     else:  # use provided SI prefix
         index = {v: k for k, v in PREFIXES.items()}[prefix]
         return number / 10**index, PREFIXES[index]
