@@ -1,3 +1,5 @@
+"""Scale numbers with SI prefixes."""
+
 from math import log10
 
 
